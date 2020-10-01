@@ -1,30 +1,28 @@
 import React from 'react';
-// import Potato from './Potato';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 
-function Food({ fav }) {
-  return <div>
-    <h3>I Like {fav}</h3>
-  </div>
+class App extends React.Component {
+  state = {
+    isLoading: true
+  };
+getMovies = async () => {
+  const movies = await axios.get('https://yts.mx/api/v2/list_movies.json');
 }
-// const foodILike = ['kimchi', 'butter chicken', 'burger'];
-const someFood = [
-  {
-    name:"f1",
-    type:'nonveg'
-  },
-  {
-    name: "f2",
-    type: "veg"
+  componentDidMount() {
+    this.getMovies();
   }
-];
 
-function App() {
-  return (
-    <div className="App">
-      {someFood.map(dish => <Food name={dish.name} />
-        )}
-    </div>
-  );
+  render() {
+    //var declarations
+    const {isLoading} = this.state;
+    return (
+      <div>
+        {isLoading ? "Loading..." : "We are ready."}
+      </div>
+      
+    )
+  }
 }
 
 export default App;
